@@ -1,15 +1,11 @@
-let button = document.getElementById("request");
-button.addEventListener("click", function () {
-	let xhr = new XMLHttpRequest();
-	xhr.open("GET", "http://localhost:8080/", true);
-	xhr.onreadystatechange = function(){
-		if (this.readyState === this.DONE) {
-			if(this.status !== 200){
-				console.log("Error!!! " + this.status);
-			}else{
-				console.log(this.responseText);
-			}
-		}
-	};
-	xhr.send();
+$("#request").on("click", function () {
+	let req = $.get("http://localhost:8080/");
+
+	req.done(function(data){
+		console.log(data);
+	});
+
+	req.fail(function(xhr, textStatus, error){
+		console.log(textStatus, error);
+	})
 })
